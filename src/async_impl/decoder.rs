@@ -197,7 +197,7 @@ impl Decoder {
     /// A plain text decoder.
     ///
     /// This decoder will emit the underlying chunks as-is.
-    fn plain_text(body: ResponseBody) -> Decoder {
+    pub fn plain_text(body: ResponseBody) -> Decoder {
         Decoder {
             inner: Inner::PlainText(body),
         }
