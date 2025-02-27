@@ -460,10 +460,15 @@ fn poll_inner_should_be_empty(
         match ready!(inner.as_mut().poll_next(cx)) {
             // ignore any empty frames
             Some(Ok(bytes)) if bytes.is_empty() => continue,
-            Some(Ok(_)) => {
+            Some(Ok(bytes)) => {
+                println!(
+                    "Extra bytes\nhex:{:x?}\n{}",
+                    bytes.as_ref(),
+                    String::from_utf8_lossy(bytes.as_ref())
+                );
                 return Poll::Ready(Some(Err(crate::error::decode(
                     "there are extra bytes after body has been decompressed",
-                ))))
+                ))));
             }
             Some(Err(err)) => return Poll::Ready(Some(Err(crate::error::decode_io(err)))),
             None => return Poll::Ready(None),
