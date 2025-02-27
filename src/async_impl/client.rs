@@ -2112,6 +2112,7 @@ impl Client {
         &self,
         request: Request,
     ) -> impl Future<Output = Result<Response, crate::Error>> {
+        println!("Hi there, greetings from a patch!");
         self.execute_request(request)
     }
 
